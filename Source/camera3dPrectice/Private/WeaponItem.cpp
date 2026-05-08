@@ -9,8 +9,8 @@ TSubclassOf<UDamageType> AWeaponItem::GetDamageType()
 
 AWeaponItem::AWeaponItem()
 {
-    Rebound = 5.f;
-    Damage = 10.f;
+    //Rebound = 5.f;
+    //Damage = 10.f;
 }
 
 void AWeaponItem::BeginPlay()

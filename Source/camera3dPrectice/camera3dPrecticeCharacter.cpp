@@ -15,7 +15,7 @@
 #include "FireDamageType.h"
 #include "Jurnel.h"
 #include "Item.h"
-#include "WeaponItem.h"
+#include "WeaponBasep.h"
 
 DEFINE_LOG_CATEGORY(LogTemplateCharacter);
 
@@ -165,18 +165,20 @@ void Acamera3dPrecticeCharacter::ItemInfoPrint(const FInputActionValue& value, i
 	if (CurrentWeapon)
 	{
 		CurrentWeapon->SetActorHiddenInGame(true);
-		CurrentWeapon->SetActorEnableCollision(false);
+		//CurrentWeapon->SetActorEnableCollision(false);
 		CurrentWeapon->DetachFromActor(FDetachmentTransformRules::KeepWorldTransform);
+        MYSCREENLOG("탐색 전: % s", *CurrentWeapon->GetName());
 	}
 
 	// 새 무기 꺼내기
 	CurrentWeapon = ItemInventory[_value];
+    MYSCREENLOG("탐색 후: %s", *CurrentWeapon->GetName());
 
 	if (CurrentWeapon)
 	{
 		// 보이게 설정
 		CurrentWeapon->SetActorHiddenInGame(false);
-		CurrentWeapon->SetActorEnableCollision(true);
+		//CurrentWeapon->SetActorEnableCollision(true);
 
         // 캐릭터에 부착
         CurrentWeapon->SetOwner(this);
@@ -189,7 +191,7 @@ void Acamera3dPrecticeCharacter::ItemInfoPrint(const FInputActionValue& value, i
 		if (ItemDatabase.Contains(CurrentWeapon))
 		{
 			FString WeaponInfo = ItemDatabase[CurrentWeapon];
-			MYSCREENLOG("현재 무기 정보: %s", *WeaponInfo);
+			MYSCREENLOG("현재 무기 장착: %s", *WeaponInfo);
 		}
 	}
 }
@@ -337,6 +339,7 @@ void Acamera3dPrecticeCharacter::Fire(const FInputActionValue& Value)
         return;
 
     // 무기 발사
-    AWeaponItem* Weapon = Cast<AWeaponItem>(CurrentWeapon);
-    Weapon->Shoot();
+    AWeaponBasep* Weapon = Cast<AWeaponBasep>(CurrentWeapon);
+    Weapon->Fire();
+    MYSCREENLOG("발사: %s", *CurrentWeapon->GetName());
 }

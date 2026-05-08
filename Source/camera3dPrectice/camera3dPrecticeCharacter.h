@@ -28,7 +28,7 @@ struct FInputActionValue;
     if(GEngine != nullptr)\
 	{\
 		FString msg = FString::Printf(TEXT(format), ##__VA_ARGS__);\
-		GEngine->AddOnScreenDebugMessage(-1, 25.0f, FColor::Blue, msg);\
+		GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Blue, msg);\
 	}\
 }
 

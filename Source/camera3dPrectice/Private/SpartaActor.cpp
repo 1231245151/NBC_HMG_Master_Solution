@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ï»¿// Fill out your copyright notice in the Description page of Project Settings.
 
 
 #include "SpartaActor.h"
@@ -20,8 +20,8 @@ void ASpartaActor::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	// kismet »ç¿ë¹æ½Ä : ºí·çÇÁ¸°Æ®, ÀÚÀ¯·Î¿î µğ¹ö±ë
-	// GetWorld »ç¿ë¹æ½Ä : c¾ğ¾î¹æ½Ä, ¼º´É ºÎÇÏ ÀûÀ½
+	// kismet ì‚¬ìš©ë°©ì‹ : ë¸”ë£¨í”„ë¦°íŠ¸, ììœ ë¡œìš´ ë””ë²„ê¹…
+	// GetWorld ì‚¬ìš©ë°©ì‹ : cì–¸ì–´ë°©ì‹, ì„±ëŠ¥ ë¶€í•˜ ì ìŒ
 	//UKismetSystemLibrary::LineTraceMulti();
 	//GetWorld()->LineTraceMultiByChannel();
 
@@ -35,27 +35,27 @@ void ASpartaActor::Tick(float DeltaTime)
 
 	//StartSingleTrace();
 	//StartMultyTrace();
-	StartAsyncTrace();
+	//StartAsyncTrace();
 }
 
 void ASpartaActor::StartSingleTrace()
 {
-	// GetWorld()´ë½Å thisµµ µÊ
-	// ¿ùµå, 
-	// ½ÃÀÛÁÂÇ¥, 
-	// ³¡ÁÂÇ¥, 
-	// TraceÃ¤³Î, 
-	// false : ´Ü¼øÄİ¸®Àü true : º¹ÇÕÄİ¸®Àü, 
-	// ¹«½ÃÇÒ ¾×ÅÍ(¾ÈÇÏ¸é ÀÚ±âÀÚ½Åµµ °ËÃâ)
-	// µğ¹ö±× ¿É¼Ç
-	// °Ë»ç°á°ú¸¦ ¾îµğ´Ù ³Ö±â?
-	// ÀÚ±âÀÚ½Å °ËÃâ?(¿©±â¼­µµ ÇÏ´ÂÀÌÀ¯´Â ³ªÁß¿¡ ´Ù¸¥ ¾×ÅÍ ºÙ°ÔµÇ¾î °ËÃâÇÏ´Â ¹®Á¦¸·À¸·Á°í ¾ÈÀü¼ºÈ®º¸.)
-	// µğ¹ö±× ¶óÀÎ »ö»ó
-	// ¸·Èù ÀÌÈÄÀÇ ¶óÀÎ »ö»ó
+	// GetWorld()ëŒ€ì‹  thisë„ ë¨
+	// ì›”ë“œ, 
+	// ì‹œì‘ì¢Œí‘œ, 
+	// ëì¢Œí‘œ, 
+	// Traceì±„ë„, 
+	// false : ë‹¨ìˆœì½œë¦¬ì „ true : ë³µí•©ì½œë¦¬ì „, 
+	// ë¬´ì‹œí•  ì•¡í„°(ì•ˆí•˜ë©´ ìê¸°ìì‹ ë„ ê²€ì¶œ)
+	// ë””ë²„ê·¸ ì˜µì…˜
+	// ê²€ì‚¬ê²°ê³¼ë¥¼ ì–´ë””ë‹¤ ë„£ê¸°?
+	// ìê¸°ìì‹  ê²€ì¶œ?(ì—¬ê¸°ì„œë„ í•˜ëŠ”ì´ìœ ëŠ” ë‚˜ì¤‘ì— ë‹¤ë¥¸ ì•¡í„° ë¶™ê²Œë˜ì–´ ê²€ì¶œí•˜ëŠ” ë¬¸ì œë§‰ìœ¼ë ¤ê³  ì•ˆì „ì„±í™•ë³´.)
+	// ë””ë²„ê·¸ ë¼ì¸ ìƒ‰ìƒ
+	// ë§‰íŒ ì´í›„ì˜ ë¼ì¸ ìƒ‰ìƒ
 	FHitResult HitResult;
 	TArray <AActor*> ActorsTolgnore;
 	ActorsTolgnore.Add(this);
-	// OverlapÀÎ ¾×ÅÍ¸¦ °ËÃâÀÌ ºÒ°¡´ÉÇÏ´Ù. Block¸¸ °ËÃâ
+	// Overlapì¸ ì•¡í„°ë¥¼ ê²€ì¶œì´ ë¶ˆê°€ëŠ¥í•˜ë‹¤. Blockë§Œ ê²€ì¶œ
 	UKismetSystemLibrary::LineTraceSingle(
 		GetWorld(),
 		GetActorLocation(),
@@ -74,9 +74,9 @@ void ASpartaActor::StartSingleTrace()
 
 void ASpartaActor::StartMultyTrace()
 {
-	// Multi¿¡¼­´Â ¹è¿­·Î °á°ú¸¦ ¹Ş´Â´Ù.
-	// OverlapÀÎ ¾×ÅÍ¸¦ °ËÃâÀÌ °¡´ÉÇÏ´Ù.
-	// ´Ù¸¸, blockµÈ ¾×ÅÍ ´ÙÀ½¿¡ ÀÖ´Â overlapÀº ¸·Çô¼­ °ËÃâ ºÒ°¡.
+	// Multiì—ì„œëŠ” ë°°ì—´ë¡œ ê²°ê³¼ë¥¼ ë°›ëŠ”ë‹¤.
+	// Overlapì¸ ì•¡í„°ë¥¼ ê²€ì¶œì´ ê°€ëŠ¥í•˜ë‹¤.
+	// ë‹¤ë§Œ, blockëœ ì•¡í„° ë‹¤ìŒì— ìˆëŠ” overlapì€ ë§‰í˜€ì„œ ê²€ì¶œ ë¶ˆê°€.
 	TArray<FHitResult> HitResult;
 	TArray <AActor*> ActorsTolgnore;
 	ActorsTolgnore.Add(this);
@@ -98,22 +98,22 @@ void ASpartaActor::StartMultyTrace()
 
 void ASpartaActor::StartAsyncTrace()
 {
-	// ¸ÖÆ¼·Î ¾²´ÂÁö ½Ì±Û·Î ¾²´ÂÁö Å×½ºÆ®(ÀÎ½ÄÇß³ª¾ÈÇß³ª, bool°ªÀÌ¶ó °¡º­¿ò)ÀÎÁö
-	// ½ÃÀÛÁöÁ¡
-	// ³¡ÁöÁ¡
-	// TraceÃ¤³Î
-	// ¿É¼Ç
-	// ¿É¼Ç
-	// µ¨¸®°ÔÀÌÆ®·Î ³Ñ±æ ÇÔ¼ö ¿É¼Ç
+	// ë©€í‹°ë¡œ ì“°ëŠ”ì§€ ì‹±ê¸€ë¡œ ì“°ëŠ”ì§€ í…ŒìŠ¤íŠ¸(ì¸ì‹í–ˆë‚˜ì•ˆí–ˆë‚˜, boolê°’ì´ë¼ ê°€ë²¼ì›€)ì¸ì§€
+	// ì‹œì‘ì§€ì 
+	// ëì§€ì 
+	// Traceì±„ë„
+	// ì˜µì…˜
+	// ì˜µì…˜
+	// ë¸ë¦¬ê²Œì´íŠ¸ë¡œ ë„˜ê¸¸ í•¨ìˆ˜ ì˜µì…˜
 
-	// ÀÌ°Ô ¹¹ÇÏ´Â°ÅÁö
+	// ì´ê²Œ ë­í•˜ëŠ”ê±°ì§€
 	FCollisionQueryParams QueryParams;
 	QueryParams.AddIgnoredActor(this);
-	// º¹ÇÕ? ´Ü¼ø? Äİ¸®Àü °Ë»ö
+	// ë³µí•©? ë‹¨ìˆœ? ì½œë¦¬ì „ ê²€ìƒ‰
 	QueryParams.bTraceComplex = false;
-	// ÀÌ°Ô¹¹ÇÏ´Â°ÅÁö
-	// WorldDynamicÀ» ECR_OverlapÀ¸·Î °­Á¦·Î º¯°æ
-	// ¿ì¼±¼øÀ§ ignore > overlap > block¼øÀÌ¸ç ¿ª¼øÀ¸·Î Ã³¸®ºÒ°¡´Ï ÁÖÀÇ
+	// ì´ê²Œë­í•˜ëŠ”ê±°ì§€
+	// WorldDynamicì„ ECR_Overlapìœ¼ë¡œ ê°•ì œë¡œ ë³€ê²½
+	// ìš°ì„ ìˆœìœ„ ignore > overlap > blockìˆœì´ë©° ì—­ìˆœìœ¼ë¡œ ì²˜ë¦¬ë¶ˆê°€ë‹ˆ ì£¼ì˜
 	FCollisionResponseParams ResponseParam;
 	ResponseParam.CollisionResponse.WorldDynamic = ECR_Block;
 
@@ -145,14 +145,14 @@ void ASpartaActor::OnAsyncTraceCompleted(const FTraceHandle& Handle, FTraceDatum
 		DrawDebugSphere(GetWorld(), Hit.ImpactPoint, 20.f, 12, FColor::Green, false, 2.f);
 	
 			
-		// µ¥¹ÌÁöÃ³¸®
-		// ¸ÂÃá ¿¢ÅÍ
-		// µ¥¹ÌÁö
-		// ¸ÂÃá¹æÇâ
-		// ¸Ó³ÄÀÌ°Å?
-		// °¡ÇØÀÚ ÄÁÆ®·Ñ·¯¾×ÅÍ´Â ´©±¸?
-		// ¾î¶² ¾×ÅÍ°¡ °ø°İÇŞ¾î? ¹¹¾ßÀÌ°Å
-		// µ¥¹ÌÁöÅ¬·¡½º ³Ö¾î¶ó
+		// ë°ë¯¸ì§€ì²˜ë¦¬
+		// ë§ì¶˜ ì—‘í„°
+		// ë°ë¯¸ì§€
+		// ë§ì¶˜ë°©í–¥
+		// ë¨¸ëƒì´ê±°?
+		// ê°€í•´ì ì»¨íŠ¸ë¡¤ëŸ¬ì•¡í„°ëŠ” ëˆ„êµ¬?
+		// ì–´ë–¤ ì•¡í„°ê°€ ê³µê²©í–‡ì–´? ë­ì•¼ì´ê±°
+		// ë°ë¯¸ì§€í´ë˜ìŠ¤ ë„£ì–´ë¼
 		UGameplayStatics::ApplyPointDamage(
 			HitActor,
 			50.f,

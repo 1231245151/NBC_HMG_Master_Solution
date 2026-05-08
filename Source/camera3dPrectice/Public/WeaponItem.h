@@ -24,8 +24,8 @@ protected:
     virtual void BeginPlay() override;
 
 private:
-    float Rebound;      // 반동
-    float Damage;       // 피해량
+    //float Rebound;      // 반동
+    //float Damage;       // 피해량
 
 	
 };

@@ -23,6 +23,6 @@ protected:
     int32 PelletCount;
     float SpreadAngle;
 
-    virtual void BeginPlay() override;
-    virtual bool Shoot() override;
+    //virtual void BeginPlay() override;
+    //virtual bool Shoot() override;
 };
