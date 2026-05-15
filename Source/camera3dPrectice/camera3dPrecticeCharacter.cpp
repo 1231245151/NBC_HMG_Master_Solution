@@ -17,6 +17,10 @@
 #include "Item.h"
 #include "WeaponBasep.h"
 
+#include "Components/TextBlock.h"
+#include "Blueprint/UserWidget.h"
+#include "MyActorComponent.h"
+
 DEFINE_LOG_CATEGORY(LogTemplateCharacter);
 
 //////////////////////////////////////////////////////////////////////////
@@ -65,28 +69,28 @@ Acamera3dPrecticeCharacter::Acamera3dPrecticeCharacter()
 // Custom Input
 
 
-float Acamera3dPrecticeCharacter::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
-{
-	float ActualDamage = Super::TakeDamage(DamageAmount, DamageEvent, EventInstigator, DamageCauser);
-
-	// 데미지 타입 가져옴
-	const UFireDamageType* FireDamage = DamageEvent.DamageTypeClass->GetDefaultObject<UFireDamageType>();
-
-	// 파이어 데미지타입이 맞다면
-	if (FireDamage)
-	{
-		//화상
-		ActualDamage *= (1.f + FireDamage->ArmorPenetration);
-
-		// 화상 효과
-
-		UE_LOG(LogTemp, Warning, TEXT("ByWorld Damage "));
-	}
-
-	//HP -= ActualDamage;
-
-	return ActualDamage;
-}
+//float Acamera3dPrecticeCharacter::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
+//{
+//	float ActualDamage = Super::TakeDamage(DamageAmount, DamageEvent, EventInstigator, DamageCauser);
+//    
+//	// 데미지 타입 가져옴
+//	const UFireDamageType* FireDamage = DamageEvent.DamageTypeClass->GetDefaultObject<UFireDamageType>();
+//    
+//	// 파이어 데미지타입이 맞다면
+//	if (FireDamage)
+//	{
+//		//화상
+//		ActualDamage *= (1.f + FireDamage->ArmorPenetration);
+//    
+//		// 화상 효과
+//    
+//		UE_LOG(LogTemp, Warning, TEXT("ByWorld Damage "));
+//	}
+//    
+//	//HP -= ActualDamage;
+//    
+//	return ActualDamage;
+//}
 
 void Acamera3dPrecticeCharacter::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
@@ -219,6 +223,25 @@ void Acamera3dPrecticeCharacter::BeginPlay()
 
     if(GetCapsuleComponent())
         GetCapsuleComponent()->OnComponentBeginOverlap.AddDynamic(this, &Acamera3dPrecticeCharacter::OnOverlapBegin);
+
+
+    UMyActorComponent* comp = FindComponentByClass<UMyActorComponent>();
+    if (comp)
+    {
+        comp->OnHealthDead.AddDynamic(this, &Acamera3dPrecticeCharacter::PlayerDead);
+        comp->OnHealthDamaged.AddDynamic(this, &Acamera3dPrecticeCharacter::UpdateHUD);
+    }
+
+    if (HUDWidgetClass)
+    {
+        HUDWidgetInstance = CreateWidget<UUserWidget>(GetWorld()->GetFirstPlayerController(), HUDWidgetClass);
+        if (HUDWidgetInstance)
+        {
+            HUDWidgetInstance->AddToViewport();
+            UpdateHUD(100, 100, 100);
+        }
+    }
+
 }
 
 void Acamera3dPrecticeCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -295,6 +318,26 @@ void Acamera3dPrecticeCharacter::SetupPlayerInputComponent(UInputComponent* Play
 	{
 		UE_LOG(LogTemplateCharacter, Error, TEXT("'%s' Failed to find an Enhanced Input component! This template is built to use the Enhanced Input system. If you intend to use the legacy system, then you will need to update this C++ file."), *GetNameSafe(this));
 	}
+}
+
+void Acamera3dPrecticeCharacter::UpdateHUD(float NewHealth, float MaxHealth, float HealthChange)
+{
+    if (HUDWidgetClass)
+    {
+        if (UTextBlock* HPText = Cast<UTextBlock>(HUDWidgetInstance->GetWidgetFromName(TEXT("HP"))))
+        {
+            HPText->SetText(FText::FromString(FString::Printf(TEXT("HP: %.0f"), NewHealth)));
+        }
+    }
+}
+
+void Acamera3dPrecticeCharacter::PlayerDead(AController* _controllor)
+{
+    if (DeadMontage)
+    {
+        // 몽타주 재생 함수 (ACharacter 기본 함수)
+        PlayAnimMontage(DeadMontage);
+    }
 }
 
 void Acamera3dPrecticeCharacter::Move(const FInputActionValue& Value)

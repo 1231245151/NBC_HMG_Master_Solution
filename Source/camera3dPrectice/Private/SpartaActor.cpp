@@ -81,6 +81,18 @@ void ASpartaActor::StartMultyTrace()
 	TArray <AActor*> ActorsTolgnore;
 	ActorsTolgnore.Add(this);
 
+    // 월드
+    // 시작좌표
+    // 끝좌표
+    // Trace채널
+    // false : 단순콜리전 true : 복합콜리전
+    // 무시할 액터 (자기자신 포함)
+    // 디버그 옵션
+    // 검사결과(배열)를 어디다 넣기?
+    // 자기자신 검출 여부 (안전성 확보)
+    // 디버그 라인 색상
+    // 막힌 이후의 라인 색상
+    // 디버그 타이머(기본시간설정)
 	UKismetSystemLibrary::LineTraceMulti(
 		GetWorld(),
 		GetActorLocation(),

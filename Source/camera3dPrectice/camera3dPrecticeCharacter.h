@@ -11,6 +11,7 @@ class USpringArmComponent;
 class UCameraComponent;
 class UInputMappingContext;
 class UInputAction;
+class UUserWidget;
 struct FInputActionValue;
 
 #define MYLOG(format, ...) \
@@ -127,7 +128,7 @@ class Acamera3dPrecticeCharacter : public ACharacter
 public:
 	Acamera3dPrecticeCharacter();
 	
-	virtual float TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, AActor* DamageCauser) override;
+	//virtual float TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, AActor* DamageCauser) override;
 
 	// 닿았을 시 이벤트
 	UFUNCTION()
@@ -140,6 +141,19 @@ public:
 
 	// 숫자패드 입력에 다른 아이템 정보 확인
 	void ItemInfoPrint(const FInputActionValue& value, int32 _value);
+
+    // UI
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "HUD")
+    TSubclassOf<UUserWidget> HUDWidgetClass;
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "HUD")
+    UUserWidget* HUDWidgetInstance;
+    UPROPERTY(EditAnywhere, Category = "Anim")
+    UAnimMontage* DeadMontage;
+
+    UFUNCTION()
+    void UpdateHUD(float NewHealth, float MaxHealth, float HealthChange);
+    UFUNCTION()
+    void PlayerDead(AController* _controllor);
 
 protected:
 
